@@ -6,28 +6,37 @@ dist: xenial
 sudo: required
 language: java
 
-# we test for JDK 8,10,11
-jdk:
-  - openjdk8
-  - openjdk10
-  - openjdk11
-  
-# compile and run the test suite
-# we manually set PRISM_JAVA to the java on the PATH as the python invocation of prism-auto fiddles with the PATH variable...  
-script: >
-  cd prism &&
-  make &&
-  echo 'Compilation successful, running test suite....' && echo &&
-  export PRISM_JAVA=`which java` &&
-  make tests &&
-  echo && echo 'Yay'
-
+jobs:
+  include:
+    - stage: tests
+      jdk:
+        - openjdk8
+        - openjdk10
+        - openjdk11
+      # compile and run the test suite
+      # we manually set PRISM_JAVA to the java on the PATH as the python invocation of prism-auto fiddles with the PATH variable...  
+      script: >
+        cd prism &&
+        make &&
+        echo 'Compilation successful, running test suite....' && echo &&
+        export PRISM_JAVA=`which java` &&
+        make tests &&
+        echo && echo 'Yay'
+    - stage: fulltest
+      jdk: openjdk11
+      script: >
+        cd prism &&
+        make &&
+        echo 'Compilation successful, running test suite....' && echo &&
+        export PRISM_JAVA=`which java` &&
+        make testsfull &&
+        echo && echo 'Yay'
 
 # notifications
 notifications:
   email:
     recipients:
-      - d.a.parker@cs.bham.ac.uk
+#      - d.a.parker@cs.bham.ac.uk
       - klein@tcs.inf.tu-dresden.de
     on_success: change
     on_failure: always
