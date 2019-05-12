@@ -34,11 +34,11 @@ jobs:
         cd prism &&
         export JACOCO_EXEC="`pwd`/jacoco.exec" &&
         export JACOCO_TARGET="`pwd`/../jacoco.xml" &&
-        make &&
+        make -e DEBUG='-O0 -g -fprofile-arcs -ftest-coverage' &&
         echo 'Compilation successful, running test suite....' && echo &&
         export PRISM_JAVA=`which java` &&
         export PRISM_JAVA_DEBUG="-javaagent:$JACOCO_AGENT=destfile=$JACOCO_EXEC" &&
-        make testsfull &&
+        make tests &&
         echo && echo 'Yay' &&
         java -jar $JACOCO_CLI report $JACOCO_EXEC --classfiles classes/ --sourcefiles src/ --xml $JACOCO_TARGET &&
         ls -la $JACOCO_TARGET $JACOCO_EXEC
