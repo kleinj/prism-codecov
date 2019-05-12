@@ -40,8 +40,8 @@ jobs:
         export PRISM_JAVA_DEBUG="-javaagent:$JACOCO_AGENT=destfile=$JACOCO_EXEC" &&
         make tests &&
         echo && echo 'Yay' &&
-        ls -la $JACOCO_TARGET &&
         java -jar $JACOCO_CLI report $JACOCO_TARGET --classfiles classes/ --sourcefiles src/ -xml $JACOCO_TARGET
+        ls -la $JACOCO_TARGET $JACOCO_EXEC &&
       after_success:
         - bash <(curl -s https://codecov.io/bash)
 
