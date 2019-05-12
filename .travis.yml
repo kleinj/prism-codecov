@@ -7,7 +7,6 @@ sudo: required
 language: java
 
 jobs:
-  include:
     - stage: tests
       jdk:
         - openjdk8
