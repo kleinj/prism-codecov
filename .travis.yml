@@ -39,6 +39,8 @@ jobs:
         make testsfull &&
         echo && echo 'Yay' &&
         ls -la $JACOCO_TARGET
+      after_success:
+        - bash <(curl -s https://codecov.io/bash)
 
 # notifications
 notifications:
