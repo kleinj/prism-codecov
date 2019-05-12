@@ -29,13 +29,13 @@ jobs:
       script: >
         curl -O 'http://search.maven.org/remotecontent?filepath=org/jacoco/jacoco/0.8.4/jacoco-0.8.4.zip' &&
         unzip -d jacoco-0.8.4 jacoco-0.8.4.zip &&
-        export JACOCO_AGENT="`pwd`/jacoco-0.8.4/lib/jacocoagent.jar"
+        export JACOCO_AGENT="`pwd`/jacoco-0.8.4/lib/jacocoagent.jar" &&
         cd prism &&
-        export JACOCO_TARGET="`pwd`/jacoco.exec"
+        export JACOCO_TARGET="`pwd`/jacoco.exec" &&
         make &&
         echo 'Compilation successful, running test suite....' && echo &&
         export PRISM_JAVA=`which java` &&
-        export PRISM_JAVA_DEBUG="-javaagent:$JACOCO_AGENT=destfile=$JACOCO_TARGET"
+        export PRISM_JAVA_DEBUG="-javaagent:$JACOCO_AGENT=destfile=$JACOCO_TARGET" &&
         make testsfull &&
         echo && echo 'Yay' &&
         ls -la $JACOCO_TARGET
