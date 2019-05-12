@@ -1069,7 +1069,7 @@ for arg in args:
 
 # shutdown
 if options.test and options.testAll and not options.echo:
-    if testStats['FAILURE'] > 0:
+    if (testStats['FAILURE'] - testStats['FAIL_NONCONVERGE']) > 0:
         # report via the exit code that there were actual failures in test + test-all mode
         closeDown(1)
 
